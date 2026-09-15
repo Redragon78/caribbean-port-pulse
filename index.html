@@ -20,7 +20,7 @@
     body { background-color: var(--light); color: var(--dark); line-height: 1.6; }
 
     /* Header Navigation */
-    header { background: var(--dark); color: #fff; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; sticky: top; top: 0; z-index: 100; }
+    header { background: var(--dark); color: #fff; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
     header h1 { font-size: 1.5rem; color: var(--secondary); display: flex; align-items: center; gap: 0.5rem; }
     nav a { color: #fff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.2s; }
     nav a:hover { color: var(--secondary); }
@@ -34,7 +34,7 @@
     .card-title { font-size: 1.25rem; color: var(--primary); margin-bottom: 1rem; border-bottom: 2px solid var(--light); padding-bottom: 0.5rem; }
 
     /* Port Selector & Info */
-    select { width: 100%; padding: 0.75rem; font-size: 1rem; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 1rem; outline: none; }
+    select { width: 100%; padding: 0.75rem; font-size: 1rem; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 1rem; outline: none; background: #fff; }
     .port-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
     .stat-box { background: var(--light); padding: 1rem; border-radius: 8px; text-align: center; }
     .stat-value { font-size: 1.2rem; font-weight: bold; color: var(--dark); }
@@ -78,6 +78,370 @@
   </header>
 
   <div class="container">
+    
+    <!-- MAIN COLUMN: Traffic Engine (Port Guides & Calculator) -->
+    <main>
+      
+      <!-- Port Selector & Overview -->
+      <section class="card" id="ports">
+        <h2 class="card-title">Select Your Cruise Port</h2>
+        <select id="portSelect" onchange="updatePortData()">
+          <optgroup label="Western Caribbean & Bahamas">
+            <option value="cozumel">Cozumel, Mexico (Puerta Maya / Int'l Pier / Punta Langosta)</option>
+            <option value="costamaya">Costa Maya, Mexico (Mahahual Cruise Port)</option>
+            <option value="nassau">Nassau, Bahamas (Prince George Wharf)</option>
+            <option value="roatan">Roatán, Honduras (Coxen Hole / Mahogany Bay)</option>
+            <option value="grandcayman">Grand Cayman (George Town Harbor Anchor)</option>
+            <option value="falmouth">Falmouth, Jamaica (Historic Falmouth Cruise Port)</option>
+            <option value="belize">Belize City, Belize (Water Taxi Tender Terminal)</option>
+          </optgroup>
+          <optgroup label="Eastern & Southern Caribbean">
+            <option value="sanjuan">San Juan, Puerto Rico (Old San Juan Piers / Pan American Pier)</option>
+            <option value="stthomas">St. Thomas, USVI (Crown Bay / Havensight Pier)</option>
+            <option value="stmaarten">Philipsburg, St. Maarten (AC Wathey Pier)</option>
+            <option value="ambercove">Amber Cove, Dominican Republic (Puerto Plata)</option>
+            <option value="curacao">Willemstad, Curaçao (Mega Pier / Mathey Wharf)</option>
+            <option value="aruba">Oranjestad, Aruba (Aruba Cruise Terminal)</option>
+            <option value="barbados">Bridgetown, Barbados (Deep Water Harbour)</option>
+          </optgroup>
+        </select>
+
+        <div class="port-stats">
+          <div class="stat-box">
+            <div class="stat-value" id="walkTime">8 Mins</div>
+            <div class="stat-label">Pier to Town Walk</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-value" id="taxiAvg">$10 - $15</div>
+            <div class="stat-label">Avg Taxi Fare</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-value" id="currency">USD / MXN</div>
+            <div class="stat-label">Accepted Cash</div>
+          </div>
+        </div>
+
+        <div id="safetyNotice" style="background: #fef2f2; border-left: 4px solid var(--alert); padding: 0.75rem; font-size: 0.9rem; border-radius: 4px; color: #991b1b;">
+          <strong>Plain-English Safety Tip:</strong> Taxis operate on fixed zone rates here. Always confirm total price <em>before</em> getting into the vehicle.
+        </div>
+      </section>
+
+      <!-- Calculator Section -->
+      <section class="card" id="calculator">
+        <h2 class="card-title">⏰ "Will I Miss My Ship?" Return Calculator</h2>
+        <p style="font-size: 0.9rem; color: #475569; margin-bottom: 1rem;">
+          Avoid becoming a pier runner! Calculate your absolute latest departure time to head back to the port safely.
+        </p>
+
+        <div class="calc-container">
+          <div class="calc-inputs">
+            <div>
+              <label for="allAboard">All Aboard Time:</label>
+              <input type="time" id="allAboard" value="16:30" onchange="calculateReturnTime()">
+            </div>
+            <div>
+              <label for="distanceMin">Distance From Pier (Mins):</label>
+              <input type="number" id="distanceMin" value="25" min="5" max="120" onchange="calculateReturnTime()">
+            </div>
+          </div>
+          <div class="calc-result" id="calcOutput">
+            Must start heading back by: <strong>3:20 PM</strong>
+          </div>
+        </div>
+
+        <!-- Strategic High-CTR Ad Placement -->
+        <div class="adsense-slot">
+          <!-- Google AdSense Code Placeholder -->
+          <p><strong>[ Google AdSense Placement - 336x280 / Responsive ]</strong></p>
+          <p>Publisher ID: ca-pub-1758899060539898</p>
+        </div>
+      </section>
+
+      <!-- Affiliate Excursions List -->
+      <section class="card">
+        <h2 class="card-title">Vetted Independent Tours (Guaranteed On-Time Return)</h2>
+        <ul id="tourList" style="list-style: none;">
+          <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <strong>All-Inclusive Beach Day & Snorkel</strong><br>
+              <small style="color: #64748b;">Duration: 4 hrs | Includes open bar + gear</small>
+            </div>
+            <a href="#" class="btn" style="width: auto; padding: 0.4rem 0.8rem; font-size: 0.85rem;">Book ($55)</a>
+          </li>
+        </ul>
+      </section>
+
+    </main>
+
+    <!-- SIDEBAR: Viral Engine (My Island Rooster Radar) -->
+    <aside>
+      
+      <div class="card" id="roosters">
+        <div class="rooster-header">
+          <h2 style="font-size: 1.1rem; color: var(--dark);">🐓 Rooster Radar</h2>
+          <span class="rooster-badge">LIVE FEED</span>
+        </div>
+        <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 1rem;">
+          Tracking 4:00 AM alarm clocks across the Caribbean.
+        </p>
+
+        <h3 style="font-size: 0.9rem; margin-bottom: 0.5rem; color: var(--primary);">Loudest Islands Leaderboard</h3>
+        <ul class="leaderboard">
+          <li><span>1. Key West / Bahamas</span> <strong>1,420 votes</strong></li>
+          <li><span>2. St. Lucia</span> <strong>1,105 votes</strong></li>
+          <li><span>3. San Juan, PR</span> <strong>890 votes</strong></li>
+          <li><span>4. Barbados</span> <strong>640 votes</strong></li>
+        </ul>
+
+        <h3 style="font-size: 0.9rem; margin-bottom: 0.5rem; color: var(--primary);">Recent Sightings</h3>
+        <div class="sighting-feed" id="sightingFeed">
+          <div class="sighting-item">
+            <strong>"Sir Clucks-A-Lot" @ Nassau Pier</strong><br>
+            "Crowed directly outside my balcony at 4:12 AM sharp."
+            <div class="sighting-time">12 mins ago</div>
+          </div>
+          <div class="sighting-item">
+            <strong>"The Beach Patrol" @ Cozumel</strong><br>
+            "Stealing tortilla chips off unattended beach chairs."
+            <div class="sighting-time">45 mins ago</div>
+          </div>
+        </div>
+
+        <button class="btn btn-secondary" onclick="reportRooster()" style="margin-top: 1rem;">
+          📢 Report a Rooster Sighting
+        </button>
+      </div>
+
+      <!-- Secondary AdSense / Affiliate Banner -->
+      <div class="adsense-slot">
+        <p><strong>[ AdSense Display Ad ]</strong></p>
+        <p>Travel Gear / eSIM Affiliate Banner</p>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <!-- JavaScript Logic -->
+  <script>
+    // Expanded 14-Port Data Structure
+    const portData = {
+      cozumel: {
+        walkTime: "8 Mins",
+        taxiAvg: "$10 - $15",
+        currency: "USD / MXN",
+        safety: "Taxis operate on fixed zone rates. Confirm total price before getting into the car. Highly safe port zone.",
+        tours: [
+          { name: "Palancar Reef Snorkel Adventure", time: "3.5 hrs", price: "$45" },
+          { name: "Playa Mia Beach Pass & Transport", time: "5 hrs", price: "$62" }
+        ]
+      },
+      costamaya: {
+        walkTime: "0 Mins (In Port)",
+        taxiAvg: "$4 (Tram to Mahahual)",
+        currency: "USD / MXN",
+        safety: "The port complex is commercialized. Take the $4 shuttle or taxi to Mahahual malecon for cheap local beach clubs.",
+        tours: [
+          { name: "Chacchoben Mayan Ruins Express", time: "4 hrs", price: "$65" },
+          { name: "Mahahual All-Inclusive Beach Day", time: "4.5 hrs", price: "$50" }
+        ]
+      },
+      nassau: {
+        walkTime: "2 Mins",
+        taxiAvg: "$15 - $25",
+        currency: "USD / BSD",
+        safety: "Water taxis to Paradise Island run every 30 mins. Keep watch on personal belongings at Junkanoo Beach.",
+        tours: [
+          { name: "Pearl Island Beach Day + Lunch", time: "4 hrs", price: "$89" },
+          { name: "Historic Nassau Walking Food Tour", time: "2.5 hrs", price: "$50" }
+        ]
+      },
+      roatan: {
+        walkTime: "10 Mins",
+        taxiAvg: "$20 - $30",
+        currency: "USD / HNL",
+        safety: "Mahogany Bay has a chairlift directly to a private beach. For West Bay Beach, use pre-booked private drivers.",
+        tours: [
+          { name: "Sloth Sanctuary & Monkey Park", time: "3 hrs", price: "$40" },
+          { name: "West Bay Snorkel Boat Charter", time: "4 hrs", price: "$65" }
+        ]
+      },
+      grandcayman: {
+        walkTime: "30 Mins (Tender Boat)",
+        taxiAvg: "$8 - $10/pp",
+        currency: "USD / KYD",
+        safety: "Tender port! You must board a ferry boat to shore. Add an extra 45 minutes to your return trip buffer.",
+        tours: [
+          { name: "Stingray City & Starfish Point", time: "3.5 hrs", price: "$55" },
+          { name: "Seven Mile Beach Shuttle Pass", time: "4 hrs", price: "$20" }
+        ]
+      },
+      falmouth: {
+        walkTime: "5 Mins",
+        taxiAvg: "$30 - $40",
+        currency: "USD / JMD",
+        safety: "Stay inside the port gates unless on an official excursion or using licensed JUTA drivers.",
+        tours: [
+          { name: "Dunn's River Falls Express Transfer", time: "4.5 hrs", price: "$70" },
+          { name: "Martha Brae Bamboo River Rafting", time: "3.5 hrs", price: "$85" }
+        ]
+      },
+      belize: {
+        walkTime: "20 Mins (Tender Boat)",
+        taxiAvg: "$15 - $25",
+        currency: "USD / BZD",
+        safety: "Long tender ride to shore. Do not wander far outside the Fort Street Tourism Village without a guide.",
+        tours: [
+          { name: "Cave Tubing & Jungle Zipline", time: "5.5 hrs", price: "$90" },
+          { name: "Barrier Reef Snorkeling Cruise", time: "3.5 hrs", price: "$65" }
+        ]
+      },
+      sanjuan: {
+        walkTime: "0 Mins (Old San Juan)",
+        taxiAvg: "$12 - $18",
+        currency: "USD",
+        safety: "Old San Juan piers drop you right in town. If docking at Pan American Pier, you must take a taxi to Old San Juan.",
+        tours: [
+          { name: "Old San Juan Historic Walking & Rum Tour", time: "2.5 hrs", price: "$45" },
+          { name: "El Yunque Rainforest Half-Day Trek", time: "5 hrs", price: "$75" }
+        ]
+      },
+      stthomas: {
+        walkTime: "15 Mins",
+        taxiAvg: "$9 - $12/pp",
+        currency: "USD",
+        safety: "Shared safari trucks are the cheapest way to Magens Bay ($10/pp). Left-side driving island!",
+        tours: [
+          { name: "Magens Bay Beach Shuttle", time: "4 hrs", price: "$30" },
+          { name: "St. Thomas Turtle Cove Catamaran", time: "3.5 hrs", price: "$95" }
+        ]
+      },
+      stmaarten: {
+        walkTime: "15 Mins (or $7 Water Taxi)",
+        taxiAvg: "$10 - $20",
+        currency: "USD / EUR",
+        safety: "Traffic returning from Maho Beach (plane spotters) can be terrible. Leave Maho at least 2.5 hours before all aboard!",
+        tours: [
+          { name: "Maho Beach Plane Spotter Shuttle", time: "4 hrs", price: "$25" },
+          { name: "Two-Island Snorkel Boat Excursion", time: "4 hrs", price: "$75" }
+        ]
+      },
+      ambercove: {
+        walkTime: "0 Mins (In Resort)",
+        taxiAvg: "$30 - $40 (To Puerto Plata)",
+        currency: "USD / DOP",
+        safety: "Amber Cove is a private resort facility with a free pool. Taxis into Puerto Plata town require negotiating up front.",
+        tours: [
+          { name: "27 Waterfalls of Damajagua Adventure", time: "4.5 hrs", price: "$69" },
+          { name: "Puerto Plata City & Cable Car Tour", time: "4 hrs", price: "$50" }
+        ]
+      },
+      curacao: {
+        walkTime: "5 Mins",
+        taxiAvg: "$15 - $20",
+        currency: "USD / ANG",
+        safety: "Very walkable port area. Watch the Queen Emma Pontoon Bridge schedule so you aren't delayed returning across the bay.",
+        tours: [
+          { name: "Willemstad Architecture & Beach Express", time: "3 hrs", price: "$40" },
+          { name: "Tugboat Shipwreck Snorkel Tour", time: "3.5 hrs", price: "$55" }
+        ]
+      },
+      aruba: {
+        walkTime: "5 Mins",
+        taxiAvg: "$12 - $18",
+        currency: "USD / AWG",
+        safety: "Take the cheap public bus ($2.60) right outside the terminal entrance straight to Eagle Beach or Palm Beach.",
+        tours: [
+          { name: "Aruba Island UTV Off-Road Safari", time: "4 hrs", price: "$110" },
+          { name: "Eagle Beach Shuttle & Chair Pass", time: "4 hrs", price: "$30" }
+        ]
+      },
+      barbados: {
+        walkTime: "20 Mins (5 Min Shuttle)",
+        taxiAvg: "$15 - $25",
+        currency: "USD / BBD",
+        safety: "Walk or take a short taxi from the terminal to Carlisle Bay for cheap beach chairs and wild sea turtle swimming.",
+        tours: [
+          { name: "Carlisle Bay Turtle & Shipwreck Snorkel", time: "2.5 hrs", price: "$40" },
+          { name: "Harrison's Cave Tram Tour", time: "4 hrs", price: "$85" }
+        ]
+      }
+    };
+
+    // Update UI when Port is selected
+    function updatePortData() {
+      const selected = document.getElementById("portSelect").value;
+      const data = portData[selected];
+
+      document.getElementById("walkTime").innerText = data.walkTime;
+      document.getElementById("taxiAvg").innerText = data.taxiAvg;
+      document.getElementById("currency").innerText = data.currency;
+      document.getElementById("safetyNotice").innerHTML = `<strong>Plain-English Safety Tip:</strong> ${data.safety}`;
+
+      // Update Tours
+      const tourList = document.getElementById("tourList");
+      tourList.innerHTML = "";
+      data.tours.forEach(tour => {
+        tourList.innerHTML += `
+          <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <strong>${tour.name}</strong><br>
+              <small style="color: #64748b;">Duration: ${tour.time}</small>
+            </div>
+            <a href="#" class="btn" style="width: auto; padding: 0.4rem 0.8rem; font-size: 0.85rem;">Book (${tour.price})</a>
+          </li>
+        `;
+      });
+    }
+
+    // Safe Return Time Calculator Logic
+    function calculateReturnTime() {
+      const allAboardVal = document.getElementById("allAboard").value;
+      const distanceMin = parseInt(document.getElementById("distanceMin").value) || 0;
+
+      if (!allAboardVal) return;
+
+      const [hours, minutes] = allAboardVal.split(":").map(Number);
+      let allAboardDate = new Date();
+      allAboardDate.setHours(hours, minutes, 0);
+
+      // Buffer Rule: Travel Time + 45 Minute Safety Cushion
+      const totalBuffer = distanceMin + 45;
+      let departureDate = new Date(allAboardDate.getTime() - totalBuffer * 60000);
+
+      let options = { hour: 'numeric', minute: '2-digit', hour12: true };
+      let formattedTime = departureDate.toLocaleTimeString([], options);
+
+      document.getElementById("calcOutput").innerHTML = `
+        Must start heading back by: <span style="color: #b91c1c;">${formattedTime}</span>
+        <br><small style="font-weight: normal; font-size: 0.8rem; color: #374151;">(Includes ${distanceMin}m travel time + 45m port security/line cushion)</small>
+      `;
+    }
+
+    // Dynamic Sighting Submission
+    function reportRooster() {
+      const location = prompt("Enter the Island / Port location:");
+      const detail = prompt("What was the rooster doing?");
+      
+      if (location && detail) {
+        const feed = document.getElementById("sightingFeed");
+        const newItem = document.createElement("div");
+        newItem.className = "sighting-item";
+        newItem.innerHTML = `
+          <strong>"New Sighting" @ ${location}</strong><br>
+          "${detail}"
+          <div class="sighting-time">Just now</div>
+        `;
+        feed.prepend(newItem);
+      }
+    }
+
+    // Initialize Calculator & First Port Data on page load
+    updatePortData();
+    calculateReturnTime();
+  </script>
+</body>
+</html>  <div class="container">
     
     <!-- MAIN COLUMN: Traffic Engine (Port Guides & Calculator) -->
     <main>
