@@ -439,6 +439,72 @@
     // Initialize Calculator & First Port Data on page load
     updatePortData();
     calculateReturnTime();
+<!-- Load Supabase JS Client library via CDN -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+  // Replace these with your actual Supabase credentials from Step 1
+  const SUPABASE_URL = "https://zrledgvgelgpjdumeujv.supabase.co/rest/v1/";
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpybGVkZ3ZnZWxncGpkdW1ldWp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk0NDE3NzUsImV4cCI6MjEwNTAxNzc3NX0.Pi67K86JJ-iGyXlB78RL_a49Oy2F3YumPX_cXueJdFk";
+
+  const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  // Load Sightings from Database on Page Load
+  async function fetchRoosterSightings() {
+    const feed = document.getElementById("sightingFeed");
+    
+    const { data: sightings, error } = await supabaseClient
+      .from("rooster_sightings")
+      .select("*")
+      .order("created_at", { ascending: false })
+      .limit(10);
+
+    if (error) {
+      console.error("Error fetching sightings:", error);
+      return;
+    }
+
+    if (sightings && sightings.length > 0) {
+      feed.innerHTML = "";
+      sightings.forEach(item => {
+        const timeAgo = new Date(item.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        feed.innerHTML += `
+          <div class="sighting-item">
+            <strong>"Sighting" @ ${item.location}</strong><br>
+            "${item.detail}"
+            <div class="sighting-time">${timeAgo}</div>
+          </div>
+        `;
+      });
+    }
+  }
+
+  // Insert Sighting into Supabase
+  async function reportRooster() {
+    const location = prompt("Enter the Island / Port location:");
+    if (!location) return;
+
+    const detail = prompt("What was the rooster doing?");
+    if (!detail) return;
+
+    const { error } = await supabaseClient
+      .from("rooster_sightings")
+      .insert([{ location: location, detail: detail }]);
+
+    if (error) {
+      alert("Error saving sighting: " + error.message);
+    } else {
+      // Refresh the feed to show the newly saved sighting
+      fetchRoosterSightings();
+    }
+  }
+
+  // Initialize Data
+  updatePortData();
+  calculateReturnTime();
+  fetchRoosterSightings();
+</script>
+    
   </script>
 </body>
 </html>
