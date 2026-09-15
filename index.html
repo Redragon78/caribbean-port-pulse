@@ -1,213 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IslandPortPulse & Rooster Radar - Caribbean Cruise & Travel Companion</title>
-  <style>
-    :root {
-      --primary: #008080; /* Caribbean Teal */
-      --secondary: #ff7f50; /* Coral / Rooster Accent */
-      --dark: #1e293b;
-      --light: #f8fafc;
-      --card-bg: #ffffff;
-      --border: #e2e8f0;
-      --alert: #ef4444;
-      --success: #10b981;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body { background-color: var(--light); color: var(--dark); line-height: 1.6; }
-
-    /* Header Navigation */
-    header { background: var(--dark); color: #fff; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
-    header h1 { font-size: 1.5rem; color: var(--secondary); display: flex; align-items: center; gap: 0.5rem; }
-    nav a { color: #fff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.2s; }
-    nav a:hover { color: var(--secondary); }
-
-    /* Layout Containers */
-    .container { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; }
-    @media (max-width: 768px) { .container { grid-template-columns: 1fr; } }
-
-    /* Card Styling */
-    .card { background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border); padding: 1.5rem; margin-bottom: 2rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
-    .card-title { font-size: 1.25rem; color: var(--primary); margin-bottom: 1rem; border-bottom: 2px solid var(--light); padding-bottom: 0.5rem; }
-
-    /* Port Selector & Info */
-    select { width: 100%; padding: 0.75rem; font-size: 1rem; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 1rem; outline: none; background: #fff; }
-    .port-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
-    .stat-box { background: var(--light); padding: 1rem; border-radius: 8px; text-align: center; }
-    .stat-value { font-size: 1.2rem; font-weight: bold; color: var(--dark); }
-    .stat-label { font-size: 0.8rem; color: #64748b; }
-
-    /* Calculator Widget */
-    .calc-container { background: #f0fdf4; border: 1px solid #bbf7d0; padding: 1.25rem; border-radius: 8px; margin: 1.5rem 0; }
-    .calc-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
-    .calc-inputs label { font-size: 0.85rem; font-weight: bold; display: block; margin-bottom: 0.25rem; }
-    .calc-inputs input { width: 100%; padding: 0.5rem; border-radius: 6px; border: 1px solid var(--border); }
-    .calc-result { text-align: center; font-weight: bold; font-size: 1.1rem; color: #166534; padding: 0.5rem; background: #dcfce7; border-radius: 6px; }
-
-    /* Viral Rooster Widget */
-    .rooster-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
-    .rooster-badge { background: var(--secondary); color: #fff; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem; font-weight: bold; }
-    .leaderboard { list-style: none; margin-bottom: 1.5rem; }
-    .leaderboard li { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px dashed var(--border); font-size: 0.95rem; }
-    .sighting-feed { max-height: 300px; overflow-y: auto; background: var(--light); padding: 0.75rem; border-radius: 8px; }
-    .sighting-item { background: #fff; padding: 0.75rem; border-radius: 6px; margin-bottom: 0.75rem; border-left: 4px solid var(--secondary); font-size: 0.85rem; }
-    .sighting-time { font-size: 0.75rem; color: #94a3b8; }
-
-    /* AdSense & Banner Slots */
-    .adsense-slot { background: #f1f5f9; border: 2px dashed #cbd5e1; text-align: center; padding: 1.5rem; margin: 1.5rem 0; border-radius: 8px; color: #64748b; font-size: 0.85rem; }
-
-    /* Buttons */
-    .btn { display: inline-block; width: 100%; background: var(--primary); color: white; padding: 0.75rem; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; text-align: center; text-decoration: none; transition: opacity 0.2s; }
-    .btn:hover { opacity: 0.9; }
-    .btn-secondary { background: var(--secondary); }
-  </style>
-</head>
-<body>
-
-  <!-- Navigation -->
-  <header>
-    <h1>🚢 IslandPortPulse <span>🐓</span></h1>
-    <nav>
-      <a href="#ports">Port Guides</a>
-      <a href="#calculator">Safe Return</a>
-      <a href="#roosters">Rooster Radar</a>
-    </nav>
-  </header>
-
-  <div class="container">
-    
-    <!-- MAIN COLUMN: Traffic Engine (Port Guides & Calculator) -->
-    <main>
-      
-      <!-- Port Selector & Overview -->
-      <section class="card" id="ports">
-        <h2 class="card-title">Select Your Cruise Port</h2>
-        <select id="portSelect">
-          <optgroup label="Western Caribbean & Bahamas">
-            <option value="cozumel">Cozumel, Mexico (Puerta Maya / Int'l Pier / Punta Langosta)</option>
-            <option value="costamaya">Costa Maya, Mexico (Mahahual Cruise Port)</option>
-            <option value="nassau">Nassau, Bahamas (Prince George Wharf)</option>
-            <option value="roatan">Roatán, Honduras (Coxen Hole / Mahogany Bay)</option>
-            <option value="grandcayman">Grand Cayman (George Town Harbor Anchor)</option>
-            <option value="falmouth">Falmouth, Jamaica (Historic Falmouth Cruise Port)</option>
-            <option value="belize">Belize City, Belize (Water Taxi Tender Terminal)</option>
-          </optgroup>
-          <optgroup label="Eastern & Southern Caribbean">
-            <option value="sanjuan">San Juan, Puerto Rico (Old San Juan Piers / Pan American Pier)</option>
-            <option value="stthomas">St. Thomas, USVI (Crown Bay / Havensight Pier)</option>
-            <option value="stmaarten">Philipsburg, St. Maarten (AC Wathey Pier)</option>
-            <option value="ambercove">Amber Cove, Dominican Republic (Puerto Plata)</option>
-            <option value="curacao">Willemstad, Curaçao (Mega Pier / Mathey Wharf)</option>
-            <option value="aruba">Oranjestad, Aruba (Aruba Cruise Terminal)</option>
-            <option value="barbados">Bridgetown, Barbados (Deep Water Harbour)</option>
-          </optgroup>
-        </select>
-
-        <div class="port-stats">
-          <div class="stat-box">
-            <div class="stat-value" id="walkTime">8 Mins</div>
-            <div class="stat-label">Pier to Town Walk</div>
-          </div>
-          <div class="stat-box">
-            <div class="stat-value" id="taxiAvg">$10 - $15</div>
-            <div class="stat-label">Avg Taxi Fare</div>
-          </div>
-          <div class="stat-box">
-            <div class="stat-value" id="currency">USD / MXN</div>
-            <div class="stat-label">Accepted Cash</div>
-          </div>
-        </div>
-
-        <div id="safetyNotice" style="background: #fef2f2; border-left: 4px solid var(--alert); padding: 0.75rem; font-size: 0.9rem; border-radius: 4px; color: #991b1b;">
-          <strong>Plain-English Safety Tip:</strong> Taxis operate on fixed zone rates here. Always confirm total price <em>before</em> getting into the vehicle.
-        </div>
-      </section>
-
-      <!-- Calculator Section -->
-      <section class="card" id="calculator">
-        <h2 class="card-title">⏰ "Will I Miss My Ship?" Return Calculator</h2>
-        <p style="font-size: 0.9rem; color: #475569; margin-bottom: 1rem;">
-          Avoid becoming a pier runner! Calculate your absolute latest departure time to head back to the port safely.
-        </p>
-
-        <div class="calc-container">
-          <div class="calc-inputs">
-            <div>
-              <label for="allAboard">All Aboard Time:</label>
-              <input type="time" id="allAboard" value="16:30">
-            </div>
-            <div>
-              <label for="distanceMin">Distance From Pier (Mins):</label>
-              <input type="number" id="distanceMin" value="25" min="5" max="120">
-            </div>
-          </div>
-          <div class="calc-result" id="calcOutput">
-            Must start heading back by: <strong>3:20 PM</strong>
-          </div>
-        </div>
-
-        <!-- Strategic High-CTR Ad Placement -->
-        <div class="adsense-slot">
-          <!-- Google AdSense Code Placeholder -->
-          <p><strong>[ Google AdSense Placement - 336x280 / Responsive ]</strong></p>
-          <p>Publisher ID: ca-pub-1758899060539898</p>
-        </div>
-      </section>
-
-      <!-- Affiliate Excursions List -->
-      <section class="card">
-        <h2 class="card-title">Vetted Independent Tours (Guaranteed On-Time Return)</h2>
-        <ul id="tourList" style="list-style: none;">
-          <!-- Dynamically populated -->
-        </ul>
-      </section>
-
-    </main>
-
-    <!-- SIDEBAR: Viral Engine (My Island Rooster Radar) -->
-    <aside>
-      
-      <div class="card" id="roosters">
-        <div class="rooster-header">
-          <h2 style="font-size: 1.1rem; color: var(--dark);">🐓 Rooster Radar</h2>
-          <span class="rooster-badge">LIVE FEED</span>
-        </div>
-        <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 1rem;">
-          Tracking 4:00 AM alarm clocks across the Caribbean.
-        </p>
-
-        <h3 style="font-size: 0.9rem; margin-bottom: 0.5rem; color: var(--primary);">Loudest Islands Leaderboard</h3>
-        <ul class="leaderboard">
-          <li><span>1. Key West / Bahamas</span> <strong>1,420 votes</strong></li>
-          <li><span>2. St. Lucia</span> <strong>1,105 votes</strong></li>
-          <li><span>3. San Juan, PR</span> <strong>890 votes</strong></li>
-          <li><span>4. Barbados</span> <strong>640 votes</strong></li>
-        </ul>
-
-        <h3 style="font-size: 0.9rem; margin-bottom: 0.5rem; color: var(--primary);">Recent Sightings</h3>
-        <div class="sighting-feed" id="sightingFeed">
-          <p style="font-size:0.8rem; color:#94a3b8;">Loading live sightings...</p>
-        </div>
-
-        <button class="btn btn-secondary" onclick="reportRooster()" style="margin-top: 1rem;">
-          📢 Report a Rooster Sighting
-        </button>
-      </div>
-
-      <!-- Secondary AdSense / Affiliate Banner -->
-      <div class="adsense-slot">
-        <p><strong>[ AdSense Display Ad ]</strong></p>
-        <p>Travel Gear / eSIM Affiliate Banner</p>
-      </div>
-
-    </aside>
-
-  </div>
-
-  <!-- JavaScript Section -->
+<!-- JavaScript Section -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
     // 1. Port Data Object
@@ -371,31 +162,44 @@
       const data = portData[selected];
 
       if (data) {
-        document.getElementById("walkTime").innerText = data.walkTime;
-        document.getElementById("taxiAvg").innerText = data.taxiAvg;
-        document.getElementById("currency").innerText = data.currency;
-        document.getElementById("safetyNotice").innerHTML = `<strong>Plain-English Safety Tip:</strong> ${data.safety}`;
-
+        const walkEl = document.getElementById("walkTime");
+        const taxiEl = document.getElementById("taxiAvg");
+        const currEl = document.getElementById("currency");
+        const safeEl = document.getElementById("safetyNotice");
         const tourList = document.getElementById("tourList");
-        tourList.innerHTML = "";
-        data.tours.forEach(tour => {
-          tourList.innerHTML += `
-            <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
-              <div>
-                <strong>${tour.name}</strong><br>
-                <small style="color: #64748b;">Duration: ${tour.time}</small>
-              </div>
-              <a href="#" class="btn" style="width: auto; padding: 0.4rem 0.8rem; font-size: 0.85rem;">Book (${tour.price})</a>
-            </li>
-          `;
-        });
+
+        if (walkEl) walkEl.innerText = data.walkTime;
+        if (taxiEl) taxiEl.innerText = data.taxiAvg;
+        if (currEl) currEl.innerText = data.currency;
+        if (safeEl) safeEl.innerHTML = `<strong>Plain-English Safety Tip:</strong> ${data.safety}`;
+
+        if (tourList) {
+          tourList.innerHTML = "";
+          data.tours.forEach(tour => {
+            tourList.innerHTML += `
+              <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                  <strong>${tour.name}</strong><br>
+                  <small style="color: #64748b;">Duration: ${tour.time}</small>
+                </div>
+                <a href="#" class="btn" style="width: auto; padding: 0.4rem 0.8rem; font-size: 0.85rem;">Book (${tour.price})</a>
+              </li>
+            `;
+          });
+        }
       }
     }
 
     // 4. Return Calculator Function
     function calculateReturnTime() {
-      const allAboardVal = document.getElementById("allAboard").value;
-      const distanceMin = parseInt(document.getElementById("distanceMin").value) || 0;
+      const allAboardInput = document.getElementById("allAboard");
+      const distanceInput = document.getElementById("distanceMin");
+      const calcOutput = document.getElementById("calcOutput");
+
+      if (!allAboardInput || !distanceInput || !calcOutput) return;
+
+      const allAboardVal = allAboardInput.value;
+      const distanceMin = parseInt(distanceInput.value) || 0;
 
       if (!allAboardVal) return;
 
@@ -409,7 +213,7 @@
       let options = { hour: 'numeric', minute: '2-digit', hour12: true };
       let formattedTime = departureDate.toLocaleTimeString([], options);
 
-      document.getElementById("calcOutput").innerHTML = `
+      calcOutput.innerHTML = `
         Must start heading back by: <span style="color: #b91c1c;">${formattedTime}</span>
         <br><small style="font-weight: normal; font-size: 0.8rem; color: #374151;">(Includes ${distanceMin}m travel time + 45m port security/line cushion)</small>
       `;
@@ -418,6 +222,8 @@
     // 5. Supabase Fetch Sightings
     async function fetchRoosterSightings() {
       const feed = document.getElementById("sightingFeed");
+      if (!feed) return;
+
       if (!supabaseClient) {
         feed.innerHTML = `
           <div class="sighting-item">
@@ -475,14 +281,16 @@
         }
       } else {
         const feed = document.getElementById("sightingFeed");
-        const newItem = document.createElement("div");
-        newItem.className = "sighting-item";
-        newItem.innerHTML = `
-          <strong>"New Sighting" @ ${location}</strong><br>
-          "${detail}"
-          <div class="sighting-time">Just now</div>
-        `;
-        feed.prepend(newItem);
+        if (feed) {
+          const newItem = document.createElement("div");
+          newItem.className = "sighting-item";
+          newItem.innerHTML = `
+            <strong>"New Sighting" @ ${location}</strong><br>
+            "${detail}"
+            <div class="sighting-time">Just now</div>
+          `;
+          feed.prepend(newItem);
+        }
       }
     }
 
@@ -500,71 +308,4 @@
       calculateReturnTime();
       fetchRoosterSightings();
     });
-    <!-- Load Supabase JS Client library via CDN -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script>
-  // Replace these with your actual Supabase credentials from Step 1
-  const SUPABASE_URL = "https://zrledgvgelgpjdumeujv.supabase.co/rest/v1/";
-  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpybGVkZ3ZnZWxncGpkdW1ldWp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk0NDE3NzUsImV4cCI6MjEwNTAxNzc3NX0.Pi67K86JJ-iGyXlB78RL_a49Oy2F3YumPX_cXueJdFk";
-
-  const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-  // Load Sightings from Database on Page Load
-  async function fetchRoosterSightings() {
-    const feed = document.getElementById("sightingFeed");
-    
-    const { data: sightings, error } = await supabaseClient
-      .from("rooster_sightings")
-      .select("*")
-      .order("created_at", { ascending: false })
-      .limit(10);
-
-    if (error) {
-      console.error("Error fetching sightings:", error);
-      return;
-    }
-
-    if (sightings && sightings.length > 0) {
-      feed.innerHTML = "";
-      sightings.forEach(item => {
-        const timeAgo = new Date(item.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        feed.innerHTML += `
-          <div class="sighting-item">
-            <strong>"Sighting" @ ${item.location}</strong><br>
-            "${item.detail}"
-            <div class="sighting-time">${timeAgo}</div>
-          </div>
-        `;
-      });
-    }
-  }
-
-  // Insert Sighting into Supabase
-  async function reportRooster() {
-    const location = prompt("Enter the Island / Port location:");
-    if (!location) return;
-
-    const detail = prompt("What was the rooster doing?");
-    if (!detail) return;
-
-    const { error } = await supabaseClient
-      .from("rooster_sightings")
-      .insert([{ location: location, detail: detail }]);
-
-    if (error) {
-      alert("Error saving sighting: " + error.message);
-    } else {
-      // Refresh the feed to show the newly saved sighting
-      fetchRoosterSightings();
-    }
-  }
-
-  // Initialize Data
-  updatePortData();
-  calculateReturnTime();
-  fetchRoosterSightings();
-
   </script>
-</body>
-</html>
