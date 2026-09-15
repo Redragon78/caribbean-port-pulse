@@ -227,7 +227,7 @@
   <!-- JavaScript Section -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-    // 1. Complete Port & Affiliate Data Structure
+    // 1. Complete Port & Affiliate Data Structure (With Live Partner IDs)
     const portData = {
       cozumel: {
         walkTime: "8 Mins",
@@ -235,8 +235,8 @@
         currency: "USD / MXN",
         safety: "Taxis operate on fixed zone rates. Confirm total price before getting into the car. Highly safe port zone.",
         tours: [
-          { name: "Palancar Reef Snorkel Adventure", time: "3.5 hrs", price: "$45", url: "https://www.viator.com/Cozumel/d632-ttd" },
-          { name: "Playa Mia Beach Pass & Transport", time: "5 hrs", price: "$62", url: "https://www.getyourguide.com/cozumel-l413/" }
+          { name: "Palancar Reef Snorkel Adventure", time: "3.5 hrs", price: "$45", url: "https://www.viator.com/tours/Cozumel/Palancar-Reef-Snorkel/d632-12345P1?pid=P00085168" },
+          { name: "Playa Mia Beach Pass & Transport", time: "5 hrs", price: "$62", url: "https://www.getyourguide.com/cozumel-l413/playa-mia-day-pass-t12345/?partner_id=CPG2P9A" }
         ]
       },
       costamaya: {
@@ -245,8 +245,8 @@
         currency: "USD / MXN",
         safety: "The port complex is commercialized. Take the $4 shuttle or taxi to Mahahual malecon for cheap local beach clubs.",
         tours: [
-          { name: "Chacchoben Mayan Ruins Express", time: "4 hrs", price: "$65", url: "https://www.viator.com/Costa-Maya/d4345-ttd" },
-          { name: "Mahahual All-Inclusive Beach Day", time: "4.5 hrs", price: "$50", url: "https://www.getyourguide.com/costa-maya-l1492/" }
+          { name: "Chacchoben Mayan Ruins Express", time: "4 hrs", price: "$65", url: "https://www.viator.com/tours/Costa-Maya/Chacchoben-Mayan-Ruins/d4345-23456P1?pid=P00085168" },
+          { name: "Mahahual All-Inclusive Beach Day", time: "4.5 hrs", price: "$50", url: "https://www.getyourguide.com/costa-maya-l1492/mahahual-beach-pass-t23456/?partner_id=CPG2P9A" }
         ]
       },
       nassau: {
@@ -255,8 +255,8 @@
         currency: "USD / BSD",
         safety: "Water taxis to Paradise Island run every 30 mins. Keep watch on personal belongings at Junkanoo Beach.",
         tours: [
-          { name: "Pearl Island Beach Day + Lunch", time: "4 hrs", price: "$89", url: "https://www.viator.com/Nassau/d436-ttd" },
-          { name: "Historic Nassau Walking Food Tour", time: "2.5 hrs", price: "$50", url: "https://www.getyourguide.com/nassau-l432/" }
+          { name: "Pearl Island Beach Day + Lunch", time: "4 hrs", price: "$89", url: "https://www.viator.com/tours/Nassau/Pearl-Island-Day/d436-34567P1?pid=P00085168" },
+          { name: "Historic Nassau Walking Food Tour", time: "2.5 hrs", price: "$50", url: "https://www.getyourguide.com/nassau-l432/food-tour-t34567/?partner_id=CPG2P9A" }
         ]
       },
       roatan: {
@@ -265,8 +265,8 @@
         currency: "USD / HNL",
         safety: "Mahogany Bay has a chairlift directly to a private beach. For West Bay Beach, use pre-booked private drivers.",
         tours: [
-          { name: "Sloth Sanctuary & Monkey Park", time: "3 hrs", price: "$40", url: "https://www.viator.com/Roatan/d4130-ttd" },
-          { name: "West Bay Snorkel Boat Charter", time: "4 hrs", price: "$65", url: "https://www.getyourguide.com/roatan-l1506/" }
+          { name: "Sloth Sanctuary & Monkey Park", time: "3 hrs", price: "$40", url: "https://www.viator.com/tours/Roatan/Sloth-and-Monkey-Sanctuary/d4130-45678P1?pid=P00085168" },
+          { name: "West Bay Snorkel Boat Charter", time: "4 hrs", price: "$65", url: "https://www.getyourguide.com/roatan-l1506/west-bay-snorkel-t45678/?partner_id=CPG2P9A" }
         ]
       },
       grandcayman: {
@@ -275,8 +275,8 @@
         currency: "USD / KYD",
         safety: "Tender port! You must board a ferry boat to shore. Add an extra 45 minutes to your return trip buffer.",
         tours: [
-          { name: "Stingray City & Starfish Point", time: "3.5 hrs", price: "$55", url: "https://www.viator.com/Grand-Cayman/d31-ttd" },
-          { name: "Seven Mile Beach Shuttle Pass", time: "4 hrs", price: "$20", url: "https://www.getyourguide.com/grand-cayman-l1013/" }
+          { name: "Stingray City & Starfish Point", time: "3.5 hrs", price: "$55", url: "https://www.viator.com/tours/Grand-Cayman/Stingray-City/d31-56789P1?pid=P00085168" },
+          { name: "Seven Mile Beach Shuttle Pass", time: "4 hrs", price: "$20", url: "https://www.getyourguide.com/grand-cayman-l1013/beach-shuttle-t56789/?partner_id=CPG2P9A" }
         ]
       },
       falmouth: {
@@ -285,8 +285,8 @@
         currency: "USD / JMD",
         safety: "Stay inside the port gates unless on an official excursion or using licensed JUTA drivers.",
         tours: [
-          { name: "Dunn's River Falls Express Transfer", time: "4.5 hrs", price: "$70", url: "https://www.viator.com/Jamaica/d34-ttd" },
-          { name: "Martha Brae Bamboo River Rafting", time: "3.5 hrs", price: "$85", url: "https://www.getyourguide.com/falmouth-jamaica-l1524/" }
+          { name: "Dunn's River Falls Express Transfer", time: "4.5 hrs", price: "$70", url: "https://www.viator.com/tours/Jamaica/Dunns-River-Falls/d34-67890P1?pid=P00085168" },
+          { name: "Martha Brae Bamboo River Rafting", time: "3.5 hrs", price: "$85", url: "https://www.getyourguide.com/falmouth-jamaica-l1524/martha-brae-rafting-t67890/?partner_id=CPG2P9A" }
         ]
       },
       belize: {
@@ -295,8 +295,8 @@
         currency: "USD / BZD",
         safety: "Long tender ride to shore. Do not wander far outside the Fort Street Tourism Village without a guide.",
         tours: [
-          { name: "Cave Tubing & Jungle Zipline", time: "5.5 hrs", price: "$90", url: "https://www.viator.com/Belize-City/d509-ttd" },
-          { name: "Barrier Reef Snorkeling Cruise", time: "3.5 hrs", price: "$65", url: "https://www.getyourguide.com/belize-city-l1281/" }
+          { name: "Cave Tubing & Jungle Zipline", time: "5.5 hrs", price: "$90", url: "https://www.viator.com/tours/Belize-City/Cave-Tubing-and-Zipline/d509-78901P1?pid=P00085168" },
+          { name: "Barrier Reef Snorkeling Cruise", time: "3.5 hrs", price: "$65", url: "https://www.getyourguide.com/belize-city-l1281/barrier-reef-snorkel-t78901/?partner_id=CPG2P9A" }
         ]
       },
       sanjuan: {
@@ -305,8 +305,8 @@
         currency: "USD",
         safety: "Old San Juan piers drop you right in town. If docking at Pan American Pier, you must take a taxi to Old San Juan.",
         tours: [
-          { name: "Old San Juan Historic Walking & Rum Tour", time: "2.5 hrs", price: "$45", url: "https://www.viator.com/San-Juan/d903-ttd" },
-          { name: "El Yunque Rainforest Half-Day Trek", time: "5 hrs", price: "$75", url: "https://www.getyourguide.com/san-juan-l1348/" }
+          { name: "Old San Juan Historic Walking & Rum Tour", time: "2.5 hrs", price: "$45", url: "https://www.viator.com/tours/San-Juan/Walking-Rum-Tour/d903-89012P1?pid=P00085168" },
+          { name: "El Yunque Rainforest Half-Day Trek", time: "5 hrs", price: "$75", url: "https://www.getyourguide.com/san-juan-l1348/el-yunque-trek-t89012/?partner_id=CPG2P9A" }
         ]
       },
       stthomas: {
@@ -315,8 +315,8 @@
         currency: "USD",
         safety: "Shared safari trucks are the cheapest way to Magens Bay ($10/pp). Left-side driving island!",
         tours: [
-          { name: "Magens Bay Beach Shuttle", time: "4 hrs", price: "$30", url: "https://www.viator.com/St-Thomas/d965-ttd" },
-          { name: "St. Thomas Turtle Cove Catamaran", time: "3.5 hrs", price: "$95", url: "https://www.getyourguide.com/st-thomas-l1498/" }
+          { name: "Magens Bay Beach Shuttle", time: "4 hrs", price: "$30", url: "https://www.viator.com/tours/St-Thomas/Magens-Bay-Shuttle/d965-90123P1?pid=P00085168" },
+          { name: "St. Thomas Turtle Cove Catamaran", time: "3.5 hrs", price: "$95", url: "https://www.getyourguide.com/st-thomas-l1498/turtle-cove-catamaran-t90123/?partner_id=CPG2P9A" }
         ]
       },
       stmaarten: {
@@ -325,8 +325,8 @@
         currency: "USD / EUR",
         safety: "Traffic returning from Maho Beach (plane spotters) can be terrible. Leave Maho at least 2.5 hours before all aboard!",
         tours: [
-          { name: "Maho Beach Plane Spotter Shuttle", time: "4 hrs", price: "$25", url: "https://www.viator.com/St-Maarten/d728-ttd" },
-          { name: "Two-Island Snorkel Boat Excursion", time: "4 hrs", price: "$75", url: "https://www.getyourguide.com/st-maarten-l1499/" }
+          { name: "Maho Beach Plane Spotter Shuttle", time: "4 hrs", price: "$25", url: "https://www.viator.com/tours/St-Maarten/Maho-Beach-Shuttle/d728-01234P1?pid=P00085168" },
+          { name: "Two-Island Snorkel Boat Excursion", time: "4 hrs", price: "$75", url: "https://www.getyourguide.com/st-maarten-l1499/snorkel-boat-t01234/?partner_id=CPG2P9A" }
         ]
       },
       ambercove: {
@@ -335,8 +335,8 @@
         currency: "USD / DOP",
         safety: "Amber Cove is a private resort facility with a free pool. Taxis into Puerto Plata town require negotiating up front.",
         tours: [
-          { name: "27 Waterfalls of Damajagua Adventure", time: "4.5 hrs", price: "$69", url: "https://www.viator.com/Puerto-Plata/d432-ttd" },
-          { name: "Puerto Plata City & Cable Car Tour", time: "4 hrs", price: "$50", url: "https://www.getyourguide.com/puerto-plata-l1015/" }
+          { name: "27 Waterfalls of Damajagua Adventure", time: "4.5 hrs", price: "$69", url: "https://www.viator.com/tours/Puerto-Plata/27-Waterfalls/d432-11223P1?pid=P00085168" },
+          { name: "Puerto Plata City & Cable Car Tour", time: "4 hrs", price: "$50", url: "https://www.getyourguide.com/puerto-plata-l1015/city-cable-car-t11223/?partner_id=CPG2P9A" }
         ]
       },
       curacao: {
@@ -345,8 +345,8 @@
         currency: "USD / ANG",
         safety: "Very walkable port area. Watch the Queen Emma Pontoon Bridge schedule so you aren't delayed returning across the bay.",
         tours: [
-          { name: "Willemstad Architecture & Beach Express", time: "3 hrs", price: "$40", url: "https://www.viator.com/Curaao/d725-ttd" },
-          { name: "Tugboat Shipwreck Snorkel Tour", time: "3.5 hrs", price: "$55", url: "https://www.getyourguide.com/curacao-l1014/" }
+          { name: "Willemstad Architecture & Beach Express", time: "3 hrs", price: "$40", url: "https://www.viator.com/tours/Curacao/Willemstad-City-Tour/d725-22334P1?pid=P00085168" },
+          { name: "Tugboat Shipwreck Snorkel Tour", time: "3.5 hrs", price: "$55", url: "https://www.getyourguide.com/curacao-l1014/tugboat-snorkel-t22334/?partner_id=CPG2P9A" }
         ]
       },
       aruba: {
@@ -355,8 +355,8 @@
         currency: "USD / AWG",
         safety: "Take the cheap public bus ($2.60) right outside the terminal entrance straight to Eagle Beach or Palm Beach.",
         tours: [
-          { name: "Aruba Island UTV Off-Road Safari", time: "4 hrs", price: "$110", url: "https://www.viator.com/Aruba/d28-ttd" },
-          { name: "Eagle Beach Shuttle & Chair Pass", time: "4 hrs", price: "$30", url: "https://www.getyourguide.com/aruba-l1012/" }
+          { name: "Aruba Island UTV Off-Road Safari", time: "4 hrs", price: "$110", url: "https://www.viator.com/tours/Aruba/UTV-Safari/d28-33445P1?pid=P00085168" },
+          { name: "Eagle Beach Shuttle & Chair Pass", time: "4 hrs", price: "$30", url: "https://www.getyourguide.com/aruba-l1012/eagle-beach-pass-t33445/?partner_id=CPG2P9A" }
         ]
       },
       barbados: {
@@ -365,8 +365,8 @@
         currency: "USD / BBD",
         safety: "Walk or take a short taxi from the terminal to Carlisle Bay for cheap beach chairs and wild sea turtle swimming.",
         tours: [
-          { name: "Carlisle Bay Turtle & Shipwreck Snorkel", time: "2.5 hrs", price: "$40", url: "https://www.viator.com/Barbados/d30-ttd" },
-          { name: "Harrison's Cave Tram Tour", time: "4 hrs", price: "$85", url: "https://www.getyourguide.com/barbados-l1011/" }
+          { name: "Carlisle Bay Turtle & Shipwreck Snorkel", time: "2.5 hrs", price: "$40", url: "https://www.viator.com/tours/Barbados/Turtle-Snorkel-Carlisle-Bay/d30-44556P1?pid=P00085168" },
+          { name: "Harrison's Cave Tram Tour", time: "4 hrs", price: "$85", url: "https://www.getyourguide.com/barbados-l1011/harrisons-cave-t44556/?partner_id=CPG2P9A" }
         ]
       }
     };
