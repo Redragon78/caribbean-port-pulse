@@ -82,10 +82,10 @@
     <!-- MAIN COLUMN: Traffic Engine (Port Guides & Calculator) -->
     <main>
       
-      <!-- Single Port Selector & Overview -->
+      <!-- Port Selector & Overview -->
       <section class="card" id="ports">
         <h2 class="card-title">Select Your Cruise Port</h2>
-        <select id="portSelect" onchange="updatePortData()">
+        <select id="portSelect">
           <optgroup label="Western Caribbean & Bahamas">
             <option value="cozumel">Cozumel, Mexico (Puerta Maya / Int'l Pier / Punta Langosta)</option>
             <option value="costamaya">Costa Maya, Mexico (Mahahual Cruise Port)</option>
@@ -137,11 +137,11 @@
           <div class="calc-inputs">
             <div>
               <label for="allAboard">All Aboard Time:</label>
-              <input type="time" id="allAboard" value="16:30" onchange="calculateReturnTime()">
+              <input type="time" id="allAboard" value="16:30">
             </div>
             <div>
               <label for="distanceMin">Distance From Pier (Mins):</label>
-              <input type="number" id="distanceMin" value="25" min="5" max="120" onchange="calculateReturnTime()">
+              <input type="number" id="distanceMin" value="25" min="5" max="120">
             </div>
           </div>
           <div class="calc-result" id="calcOutput">
@@ -161,13 +161,7 @@
       <section class="card">
         <h2 class="card-title">Vetted Independent Tours (Guaranteed On-Time Return)</h2>
         <ul id="tourList" style="list-style: none;">
-          <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
-            <div>
-              <strong>All-Inclusive Beach Day & Snorkel</strong><br>
-              <small style="color: #64748b;">Duration: 4 hrs | Includes open bar + gear</small>
-            </div>
-            <a href="#" class="btn" style="width: auto; padding: 0.4rem 0.8rem; font-size: 0.85rem;">Book ($55)</a>
-          </li>
+          <!-- Dynamically populated -->
         </ul>
       </section>
 
@@ -195,16 +189,7 @@
 
         <h3 style="font-size: 0.9rem; margin-bottom: 0.5rem; color: var(--primary);">Recent Sightings</h3>
         <div class="sighting-feed" id="sightingFeed">
-          <div class="sighting-item">
-            <strong>"Sir Clucks-A-Lot" @ Nassau Pier</strong><br>
-            "Crowed directly outside my balcony at 4:12 AM sharp."
-            <div class="sighting-time">12 mins ago</div>
-          </div>
-          <div class="sighting-item">
-            <strong>"The Beach Patrol" @ Cozumel</strong><br>
-            "Stealing tortilla chips off unattended beach chairs."
-            <div class="sighting-time">45 mins ago</div>
-          </div>
+          <p style="font-size:0.8rem; color:#94a3b8;">Loading live sightings...</p>
         </div>
 
         <button class="btn btn-secondary" onclick="reportRooster()" style="margin-top: 1rem;">
@@ -222,9 +207,10 @@
 
   </div>
 
-  <!-- JavaScript Logic -->
+  <!-- JavaScript Section -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-    // 14-Port Data Structure
+    // 1. Port Data Object
     const portData = {
       cozumel: {
         walkTime: "8 Mins",
@@ -368,33 +354,45 @@
       }
     };
 
-    // Update UI when Port is selected
-    function updatePortData() {
-      const selected = document.getElementById("portSelect").value;
-      const data = portData[selected];
+    // 2. Supabase Configuration (Ensure you put your actual credentials here)
+    const SUPABASE_URL = "https://YOUR_PROJECT_ID.supabase.co";
+    const SUPABASE_ANON_KEY = "YOUR_ANON_PUBLIC_KEY";
+    let supabaseClient = null;
 
-      document.getElementById("walkTime").innerText = data.walkTime;
-      document.getElementById("taxiAvg").innerText = data.taxiAvg;
-      document.getElementById("currency").innerText = data.currency;
-      document.getElementById("safetyNotice").innerHTML = `<strong>Plain-English Safety Tip:</strong> ${data.safety}`;
-
-      // Update Tours
-      const tourList = document.getElementById("tourList");
-      tourList.innerHTML = "";
-      data.tours.forEach(tour => {
-        tourList.innerHTML += `
-          <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
-            <div>
-              <strong>${tour.name}</strong><br>
-              <small style="color: #64748b;">Duration: ${tour.time}</small>
-            </div>
-            <a href="#" class="btn" style="width: auto; padding: 0.4rem 0.8rem; font-size: 0.85rem;">Book (${tour.price})</a>
-          </li>
-        `;
-      });
+    if (typeof supabase !== 'undefined' && SUPABASE_URL !== "https://YOUR_PROJECT_ID.supabase.co") {
+      supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     }
 
-    // Safe Return Time Calculator Logic
+    // 3. Port Data Update Function
+    function updatePortData() {
+      const portSelect = document.getElementById("portSelect");
+      if (!portSelect) return;
+      const selected = portSelect.value;
+      const data = portData[selected];
+
+      if (data) {
+        document.getElementById("walkTime").innerText = data.walkTime;
+        document.getElementById("taxiAvg").innerText = data.taxiAvg;
+        document.getElementById("currency").innerText = data.currency;
+        document.getElementById("safetyNotice").innerHTML = `<strong>Plain-English Safety Tip:</strong> ${data.safety}`;
+
+        const tourList = document.getElementById("tourList");
+        tourList.innerHTML = "";
+        data.tours.forEach(tour => {
+          tourList.innerHTML += `
+            <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <strong>${tour.name}</strong><br>
+                <small style="color: #64748b;">Duration: ${tour.time}</small>
+              </div>
+              <a href="#" class="btn" style="width: auto; padding: 0.4rem 0.8rem; font-size: 0.85rem;">Book (${tour.price})</a>
+            </li>
+          `;
+        });
+      }
+    }
+
+    // 4. Return Calculator Function
     function calculateReturnTime() {
       const allAboardVal = document.getElementById("allAboard").value;
       const distanceMin = parseInt(document.getElementById("distanceMin").value) || 0;
@@ -405,7 +403,6 @@
       let allAboardDate = new Date();
       allAboardDate.setHours(hours, minutes, 0);
 
-      // Buffer Rule: Travel Time + 45 Minute Safety Cushion
       const totalBuffer = distanceMin + 45;
       let departureDate = new Date(allAboardDate.getTime() - totalBuffer * 60000);
 
@@ -418,12 +415,65 @@
       `;
     }
 
-    // Dynamic Sighting Submission
-    function reportRooster() {
+    // 5. Supabase Fetch Sightings
+    async function fetchRoosterSightings() {
+      const feed = document.getElementById("sightingFeed");
+      if (!supabaseClient) {
+        feed.innerHTML = `
+          <div class="sighting-item">
+            <strong>"Sir Clucks-A-Lot" @ Nassau Pier</strong><br>
+            "Crowed directly outside my balcony at 4:12 AM sharp."
+            <div class="sighting-time">12 mins ago</div>
+          </div>
+        `;
+        return;
+      }
+
+      const { data: sightings, error } = await supabaseClient
+        .from("rooster_sightings")
+        .select("*")
+        .order("created_at", { ascending: false })
+        .limit(10);
+
+      if (error) {
+        console.error("Error fetching sightings:", error);
+        return;
+      }
+
+      if (sightings && sightings.length > 0) {
+        feed.innerHTML = "";
+        sightings.forEach(item => {
+          const timeAgo = new Date(item.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+          feed.innerHTML += `
+            <div class="sighting-item">
+              <strong>"Sighting" @ ${item.location}</strong><br>
+              "${item.detail}"
+              <div class="sighting-time">${timeAgo}</div>
+            </div>
+          `;
+        });
+      }
+    }
+
+    // 6. Supabase Report Sighting Function
+    async function reportRooster() {
       const location = prompt("Enter the Island / Port location:");
+      if (!location) return;
+
       const detail = prompt("What was the rooster doing?");
-      
-      if (location && detail) {
+      if (!detail) return;
+
+      if (supabaseClient) {
+        const { error } = await supabaseClient
+          .from("rooster_sightings")
+          .insert([{ location: location, detail: detail }]);
+
+        if (error) {
+          alert("Error saving sighting: " + error.message);
+        } else {
+          fetchRoosterSightings();
+        }
+      } else {
         const feed = document.getElementById("sightingFeed");
         const newItem = document.createElement("div");
         newItem.className = "sighting-item";
@@ -436,10 +486,21 @@
       }
     }
 
-    // Initialize Calculator & First Port Data on page load
-    updatePortData();
-    calculateReturnTime();
-<!-- Load Supabase JS Client library via CDN -->
+    // 7. Event Listener Initializations
+    document.addEventListener("DOMContentLoaded", function() {
+      const portSelect = document.getElementById("portSelect");
+      const allAboard = document.getElementById("allAboard");
+      const distanceMin = document.getElementById("distanceMin");
+
+      if (portSelect) portSelect.addEventListener("change", updatePortData);
+      if (allAboard) allAboard.addEventListener("change", calculateReturnTime);
+      if (distanceMin) distanceMin.addEventListener("input", calculateReturnTime);
+
+      updatePortData();
+      calculateReturnTime();
+      fetchRoosterSightings();
+    });
+    <!-- Load Supabase JS Client library via CDN -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
@@ -504,7 +565,6 @@
   calculateReturnTime();
   fetchRoosterSightings();
 </script>
-    
   </script>
 </body>
 </html>
