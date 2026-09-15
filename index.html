@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IslandPortPulse & Rooster Radar - Caribbean Cruise & Travel Companion</title>
+  
+  <!-- Google AdSense Auto-Ads Script -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1758899060539898" crossorigin="anonymous"></script>
+
   <style>
     :root {
       --primary: #008080; /* Caribbean Teal */
@@ -57,7 +61,7 @@
     .sighting-time { font-size: 0.75rem; color: #94a3b8; }
 
     /* AdSense & Banner Slots */
-    .adsense-slot { background: #f1f5f9; border: 2px dashed #cbd5e1; text-align: center; padding: 1.5rem; margin: 1.5rem 0; border-radius: 8px; color: #64748b; font-size: 0.85rem; }
+    .adsense-slot { background: #f1f5f9; border: 1px dashed #cbd5e1; text-align: center; padding: 1rem; margin: 1.5rem 0; border-radius: 8px; min-height: 100px; }
 
     /* Buttons */
     .btn { display: inline-block; width: 100%; background: var(--primary); color: white; padding: 0.75rem; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; text-align: center; text-decoration: none; transition: opacity 0.2s; }
@@ -79,13 +83,13 @@
 
   <div class="container">
     
-    <!-- MAIN COLUMN: Traffic Engine (Port Guides & Calculator) -->
+    <!-- MAIN COLUMN -->
     <main>
       
-      <!-- Single Port Selector & Overview -->
+      <!-- Port Selector & Overview -->
       <section class="card" id="ports">
         <h2 class="card-title">Select Your Cruise Port</h2>
-        <select id="portSelect" onchange="updatePortData()">
+        <select id="portSelect">
           <optgroup label="Western Caribbean & Bahamas">
             <option value="cozumel">Cozumel, Mexico (Puerta Maya / Int'l Pier / Punta Langosta)</option>
             <option value="costamaya">Costa Maya, Mexico (Mahahual Cruise Port)</option>
@@ -137,11 +141,11 @@
           <div class="calc-inputs">
             <div>
               <label for="allAboard">All Aboard Time:</label>
-              <input type="time" id="allAboard" value="16:30" onchange="calculateReturnTime()">
+              <input type="time" id="allAboard" value="16:30">
             </div>
             <div>
               <label for="distanceMin">Distance From Pier (Mins):</label>
-              <input type="number" id="distanceMin" value="25" min="5" max="120" onchange="calculateReturnTime()">
+              <input type="number" id="distanceMin" value="25" min="5" max="120">
             </div>
           </div>
           <div class="calc-result" id="calcOutput">
@@ -151,9 +155,15 @@
 
         <!-- Strategic High-CTR Ad Placement -->
         <div class="adsense-slot">
-          <!-- Google AdSense Code Placeholder -->
-          <p><strong>[ Google AdSense Placement - 336x280 / Responsive ]</strong></p>
-          <p>Publisher ID: ca-pub-1758899060539898</p>
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-1758899060539898"
+               data-ad-slot="auto"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>
+               (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
         </div>
       </section>
 
@@ -161,19 +171,13 @@
       <section class="card">
         <h2 class="card-title">Vetted Independent Tours (Guaranteed On-Time Return)</h2>
         <ul id="tourList" style="list-style: none;">
-          <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
-            <div>
-              <strong>All-Inclusive Beach Day & Snorkel</strong><br>
-              <small style="color: #64748b;">Duration: 4 hrs | Includes open bar + gear</small>
-            </div>
-            <a href="#" class="btn" style="width: auto; padding: 0.4rem 0.8rem; font-size: 0.85rem;">Book ($55)</a>
-          </li>
+          <!-- Dynamically populated by JS -->
         </ul>
       </section>
 
     </main>
 
-    <!-- SIDEBAR: Viral Engine (My Island Rooster Radar) -->
+    <!-- SIDEBAR -->
     <aside>
       
       <div class="card" id="roosters">
@@ -195,16 +199,7 @@
 
         <h3 style="font-size: 0.9rem; margin-bottom: 0.5rem; color: var(--primary);">Recent Sightings</h3>
         <div class="sighting-feed" id="sightingFeed">
-          <div class="sighting-item">
-            <strong>"Sir Clucks-A-Lot" @ Nassau Pier</strong><br>
-            "Crowed directly outside my balcony at 4:12 AM sharp."
-            <div class="sighting-time">12 mins ago</div>
-          </div>
-          <div class="sighting-item">
-            <strong>"The Beach Patrol" @ Cozumel</strong><br>
-            "Stealing tortilla chips off unattended beach chairs."
-            <div class="sighting-time">45 mins ago</div>
-          </div>
+          <p style="font-size:0.8rem; color:#94a3b8;">Loading live sightings...</p>
         </div>
 
         <button class="btn btn-secondary" onclick="reportRooster()" style="margin-top: 1rem;">
@@ -212,19 +207,27 @@
         </button>
       </div>
 
-      <!-- Secondary AdSense / Affiliate Banner -->
+      <!-- Secondary Sidebar AdSense Unit -->
       <div class="adsense-slot">
-        <p><strong>[ AdSense Display Ad ]</strong></p>
-        <p>Travel Gear / eSIM Affiliate Banner</p>
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-1758899060539898"
+             data-ad-slot="auto"
+             data-ad-format="rectangle"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
       </div>
 
     </aside>
 
   </div>
 
-  <!-- JavaScript Logic -->
+  <!-- JavaScript Section -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-    // 14-Port Data Structure
+    // 1. Complete Port & Affiliate Data Structure
     const portData = {
       cozumel: {
         walkTime: "8 Mins",
@@ -232,8 +235,8 @@
         currency: "USD / MXN",
         safety: "Taxis operate on fixed zone rates. Confirm total price before getting into the car. Highly safe port zone.",
         tours: [
-          { name: "Palancar Reef Snorkel Adventure", time: "3.5 hrs", price: "$45" },
-          { name: "Playa Mia Beach Pass & Transport", time: "5 hrs", price: "$62" }
+          { name: "Palancar Reef Snorkel Adventure", time: "3.5 hrs", price: "$45", url: "https://www.viator.com/Cozumel/d632-ttd" },
+          { name: "Playa Mia Beach Pass & Transport", time: "5 hrs", price: "$62", url: "https://www.getyourguide.com/cozumel-l413/" }
         ]
       },
       costamaya: {
@@ -242,8 +245,8 @@
         currency: "USD / MXN",
         safety: "The port complex is commercialized. Take the $4 shuttle or taxi to Mahahual malecon for cheap local beach clubs.",
         tours: [
-          { name: "Chacchoben Mayan Ruins Express", time: "4 hrs", price: "$65" },
-          { name: "Mahahual All-Inclusive Beach Day", time: "4.5 hrs", price: "$50" }
+          { name: "Chacchoben Mayan Ruins Express", time: "4 hrs", price: "$65", url: "https://www.viator.com/Costa-Maya/d4345-ttd" },
+          { name: "Mahahual All-Inclusive Beach Day", time: "4.5 hrs", price: "$50", url: "https://www.getyourguide.com/costa-maya-l1492/" }
         ]
       },
       nassau: {
@@ -252,8 +255,8 @@
         currency: "USD / BSD",
         safety: "Water taxis to Paradise Island run every 30 mins. Keep watch on personal belongings at Junkanoo Beach.",
         tours: [
-          { name: "Pearl Island Beach Day + Lunch", time: "4 hrs", price: "$89" },
-          { name: "Historic Nassau Walking Food Tour", time: "2.5 hrs", price: "$50" }
+          { name: "Pearl Island Beach Day + Lunch", time: "4 hrs", price: "$89", url: "https://www.viator.com/Nassau/d436-ttd" },
+          { name: "Historic Nassau Walking Food Tour", time: "2.5 hrs", price: "$50", url: "https://www.getyourguide.com/nassau-l432/" }
         ]
       },
       roatan: {
@@ -262,8 +265,8 @@
         currency: "USD / HNL",
         safety: "Mahogany Bay has a chairlift directly to a private beach. For West Bay Beach, use pre-booked private drivers.",
         tours: [
-          { name: "Sloth Sanctuary & Monkey Park", time: "3 hrs", price: "$40" },
-          { name: "West Bay Snorkel Boat Charter", time: "4 hrs", price: "$65" }
+          { name: "Sloth Sanctuary & Monkey Park", time: "3 hrs", price: "$40", url: "https://www.viator.com/Roatan/d4130-ttd" },
+          { name: "West Bay Snorkel Boat Charter", time: "4 hrs", price: "$65", url: "https://www.getyourguide.com/roatan-l1506/" }
         ]
       },
       grandcayman: {
@@ -272,8 +275,8 @@
         currency: "USD / KYD",
         safety: "Tender port! You must board a ferry boat to shore. Add an extra 45 minutes to your return trip buffer.",
         tours: [
-          { name: "Stingray City & Starfish Point", time: "3.5 hrs", price: "$55" },
-          { name: "Seven Mile Beach Shuttle Pass", time: "4 hrs", price: "$20" }
+          { name: "Stingray City & Starfish Point", time: "3.5 hrs", price: "$55", url: "https://www.viator.com/Grand-Cayman/d31-ttd" },
+          { name: "Seven Mile Beach Shuttle Pass", time: "4 hrs", price: "$20", url: "https://www.getyourguide.com/grand-cayman-l1013/" }
         ]
       },
       falmouth: {
@@ -282,8 +285,8 @@
         currency: "USD / JMD",
         safety: "Stay inside the port gates unless on an official excursion or using licensed JUTA drivers.",
         tours: [
-          { name: "Dunn's River Falls Express Transfer", time: "4.5 hrs", price: "$70" },
-          { name: "Martha Brae Bamboo River Rafting", time: "3.5 hrs", price: "$85" }
+          { name: "Dunn's River Falls Express Transfer", time: "4.5 hrs", price: "$70", url: "https://www.viator.com/Jamaica/d34-ttd" },
+          { name: "Martha Brae Bamboo River Rafting", time: "3.5 hrs", price: "$85", url: "https://www.getyourguide.com/falmouth-jamaica-l1524/" }
         ]
       },
       belize: {
@@ -292,8 +295,8 @@
         currency: "USD / BZD",
         safety: "Long tender ride to shore. Do not wander far outside the Fort Street Tourism Village without a guide.",
         tours: [
-          { name: "Cave Tubing & Jungle Zipline", time: "5.5 hrs", price: "$90" },
-          { name: "Barrier Reef Snorkeling Cruise", time: "3.5 hrs", price: "$65" }
+          { name: "Cave Tubing & Jungle Zipline", time: "5.5 hrs", price: "$90", url: "https://www.viator.com/Belize-City/d509-ttd" },
+          { name: "Barrier Reef Snorkeling Cruise", time: "3.5 hrs", price: "$65", url: "https://www.getyourguide.com/belize-city-l1281/" }
         ]
       },
       sanjuan: {
@@ -302,8 +305,8 @@
         currency: "USD",
         safety: "Old San Juan piers drop you right in town. If docking at Pan American Pier, you must take a taxi to Old San Juan.",
         tours: [
-          { name: "Old San Juan Historic Walking & Rum Tour", time: "2.5 hrs", price: "$45" },
-          { name: "El Yunque Rainforest Half-Day Trek", time: "5 hrs", price: "$75" }
+          { name: "Old San Juan Historic Walking & Rum Tour", time: "2.5 hrs", price: "$45", url: "https://www.viator.com/San-Juan/d903-ttd" },
+          { name: "El Yunque Rainforest Half-Day Trek", time: "5 hrs", price: "$75", url: "https://www.getyourguide.com/san-juan-l1348/" }
         ]
       },
       stthomas: {
@@ -312,8 +315,8 @@
         currency: "USD",
         safety: "Shared safari trucks are the cheapest way to Magens Bay ($10/pp). Left-side driving island!",
         tours: [
-          { name: "Magens Bay Beach Shuttle", time: "4 hrs", price: "$30" },
-          { name: "St. Thomas Turtle Cove Catamaran", time: "3.5 hrs", price: "$95" }
+          { name: "Magens Bay Beach Shuttle", time: "4 hrs", price: "$30", url: "https://www.viator.com/St-Thomas/d965-ttd" },
+          { name: "St. Thomas Turtle Cove Catamaran", time: "3.5 hrs", price: "$95", url: "https://www.getyourguide.com/st-thomas-l1498/" }
         ]
       },
       stmaarten: {
@@ -322,8 +325,8 @@
         currency: "USD / EUR",
         safety: "Traffic returning from Maho Beach (plane spotters) can be terrible. Leave Maho at least 2.5 hours before all aboard!",
         tours: [
-          { name: "Maho Beach Plane Spotter Shuttle", time: "4 hrs", price: "$25" },
-          { name: "Two-Island Snorkel Boat Excursion", time: "4 hrs", price: "$75" }
+          { name: "Maho Beach Plane Spotter Shuttle", time: "4 hrs", price: "$25", url: "https://www.viator.com/St-Maarten/d728-ttd" },
+          { name: "Two-Island Snorkel Boat Excursion", time: "4 hrs", price: "$75", url: "https://www.getyourguide.com/st-maarten-l1499/" }
         ]
       },
       ambercove: {
@@ -332,8 +335,8 @@
         currency: "USD / DOP",
         safety: "Amber Cove is a private resort facility with a free pool. Taxis into Puerto Plata town require negotiating up front.",
         tours: [
-          { name: "27 Waterfalls of Damajagua Adventure", time: "4.5 hrs", price: "$69" },
-          { name: "Puerto Plata City & Cable Car Tour", time: "4 hrs", price: "$50" }
+          { name: "27 Waterfalls of Damajagua Adventure", time: "4.5 hrs", price: "$69", url: "https://www.viator.com/Puerto-Plata/d432-ttd" },
+          { name: "Puerto Plata City & Cable Car Tour", time: "4 hrs", price: "$50", url: "https://www.getyourguide.com/puerto-plata-l1015/" }
         ]
       },
       curacao: {
@@ -342,8 +345,8 @@
         currency: "USD / ANG",
         safety: "Very walkable port area. Watch the Queen Emma Pontoon Bridge schedule so you aren't delayed returning across the bay.",
         tours: [
-          { name: "Willemstad Architecture & Beach Express", time: "3 hrs", price: "$40" },
-          { name: "Tugboat Shipwreck Snorkel Tour", time: "3.5 hrs", price: "$55" }
+          { name: "Willemstad Architecture & Beach Express", time: "3 hrs", price: "$40", url: "https://www.viator.com/Curaao/d725-ttd" },
+          { name: "Tugboat Shipwreck Snorkel Tour", time: "3.5 hrs", price: "$55", url: "https://www.getyourguide.com/curacao-l1014/" }
         ]
       },
       aruba: {
@@ -352,8 +355,8 @@
         currency: "USD / AWG",
         safety: "Take the cheap public bus ($2.60) right outside the terminal entrance straight to Eagle Beach or Palm Beach.",
         tours: [
-          { name: "Aruba Island UTV Off-Road Safari", time: "4 hrs", price: "$110" },
-          { name: "Eagle Beach Shuttle & Chair Pass", time: "4 hrs", price: "$30" }
+          { name: "Aruba Island UTV Off-Road Safari", time: "4 hrs", price: "$110", url: "https://www.viator.com/Aruba/d28-ttd" },
+          { name: "Eagle Beach Shuttle & Chair Pass", time: "4 hrs", price: "$30", url: "https://www.getyourguide.com/aruba-l1012/" }
         ]
       },
       barbados: {
@@ -362,42 +365,68 @@
         currency: "USD / BBD",
         safety: "Walk or take a short taxi from the terminal to Carlisle Bay for cheap beach chairs and wild sea turtle swimming.",
         tours: [
-          { name: "Carlisle Bay Turtle & Shipwreck Snorkel", time: "2.5 hrs", price: "$40" },
-          { name: "Harrison's Cave Tram Tour", time: "4 hrs", price: "$85" }
+          { name: "Carlisle Bay Turtle & Shipwreck Snorkel", time: "2.5 hrs", price: "$40", url: "https://www.viator.com/Barbados/d30-ttd" },
+          { name: "Harrison's Cave Tram Tour", time: "4 hrs", price: "$85", url: "https://www.getyourguide.com/barbados-l1011/" }
         ]
       }
     };
 
-    // Update UI when Port is selected
-    function updatePortData() {
-      const selected = document.getElementById("portSelect").value;
-      const data = portData[selected];
+    // 2. Supabase Configuration
+    const SUPABASE_URL = "https://YOUR_PROJECT_ID.supabase.co";
+    const SUPABASE_ANON_KEY = "YOUR_ANON_PUBLIC_KEY";
+    let supabaseClient = null;
 
-      document.getElementById("walkTime").innerText = data.walkTime;
-      document.getElementById("taxiAvg").innerText = data.taxiAvg;
-      document.getElementById("currency").innerText = data.currency;
-      document.getElementById("safetyNotice").innerHTML = `<strong>Plain-English Safety Tip:</strong> ${data.safety}`;
-
-      // Update Tours
-      const tourList = document.getElementById("tourList");
-      tourList.innerHTML = "";
-      data.tours.forEach(tour => {
-        tourList.innerHTML += `
-          <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
-            <div>
-              <strong>${tour.name}</strong><br>
-              <small style="color: #64748b;">Duration: ${tour.time}</small>
-            </div>
-            <a href="#" class="btn" style="width: auto; padding: 0.4rem 0.8rem; font-size: 0.85rem;">Book (${tour.price})</a>
-          </li>
-        `;
-      });
+    if (typeof supabase !== 'undefined' && SUPABASE_URL !== "https://YOUR_PROJECT_ID.supabase.co") {
+      supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     }
 
-    // Safe Return Time Calculator Logic
+    // 3. Robust Port Data Update Function
+    function updatePortData() {
+      const portSelect = document.getElementById("portSelect");
+      if (!portSelect) return;
+      const selected = portSelect.value;
+      const data = portData[selected];
+
+      if (data) {
+        document.getElementById("walkTime").innerText = data.walkTime;
+        document.getElementById("taxiAvg").innerText = data.taxiAvg;
+        document.getElementById("currency").innerText = data.currency;
+        document.getElementById("safetyNotice").innerHTML = `<strong>Plain-English Safety Tip:</strong> ${data.safety}`;
+
+        const tourList = document.getElementById("tourList");
+        if (tourList) {
+          tourList.innerHTML = ""; // Clear existing tours
+          data.tours.forEach(tour => {
+            const tourItem = document.createElement("li");
+            tourItem.style.padding = "0.75rem 0";
+            tourItem.style.borderBottom = "1px solid var(--border)";
+            tourItem.style.display = "flex";
+            tourItem.style.justifyContent = "space-between";
+            tourItem.style.alignItems = "center";
+
+            tourItem.innerHTML = `
+              <div>
+                <strong>${tour.name}</strong><br>
+                <small style="color: #64748b;">Duration: ${tour.time}</small>
+              </div>
+              <a href="${tour.url}" target="_blank" rel="noopener noreferrer" class="btn" style="width: auto; padding: 0.4rem 0.8rem; font-size: 0.85rem;">Book (${tour.price})</a>
+            `;
+            tourList.appendChild(tourItem);
+          });
+        }
+      }
+    }
+
+    // 4. Safe Return Calculator
     function calculateReturnTime() {
-      const allAboardVal = document.getElementById("allAboard").value;
-      const distanceMin = parseInt(document.getElementById("distanceMin").value) || 0;
+      const allAboardInput = document.getElementById("allAboard");
+      const distanceInput = document.getElementById("distanceMin");
+      const calcOutput = document.getElementById("calcOutput");
+
+      if (!allAboardInput || !distanceInput || !calcOutput) return;
+
+      const allAboardVal = allAboardInput.value;
+      const distanceMin = parseInt(distanceInput.value) || 0;
 
       if (!allAboardVal) return;
 
@@ -405,40 +434,108 @@
       let allAboardDate = new Date();
       allAboardDate.setHours(hours, minutes, 0);
 
-      // Buffer Rule: Travel Time + 45 Minute Safety Cushion
       const totalBuffer = distanceMin + 45;
       let departureDate = new Date(allAboardDate.getTime() - totalBuffer * 60000);
 
       let options = { hour: 'numeric', minute: '2-digit', hour12: true };
       let formattedTime = departureDate.toLocaleTimeString([], options);
 
-      document.getElementById("calcOutput").innerHTML = `
+      calcOutput.innerHTML = `
         Must start heading back by: <span style="color: #b91c1c;">${formattedTime}</span>
         <br><small style="font-weight: normal; font-size: 0.8rem; color: #374151;">(Includes ${distanceMin}m travel time + 45m port security/line cushion)</small>
       `;
     }
 
-    // Dynamic Sighting Submission
-    function reportRooster() {
-      const location = prompt("Enter the Island / Port location:");
-      const detail = prompt("What was the rooster doing?");
-      
-      if (location && detail) {
-        const feed = document.getElementById("sightingFeed");
-        const newItem = document.createElement("div");
-        newItem.className = "sighting-item";
-        newItem.innerHTML = `
-          <strong>"New Sighting" @ ${location}</strong><br>
-          "${detail}"
-          <div class="sighting-time">Just now</div>
+    // 5. Fetch Rooster Sightings from Supabase
+    async function fetchRoosterSightings() {
+      const feed = document.getElementById("sightingFeed");
+      if (!feed) return;
+
+      if (!supabaseClient) {
+        feed.innerHTML = `
+          <div class="sighting-item">
+            <strong>"Sir Clucks-A-Lot" @ Nassau Pier</strong><br>
+            "Crowed directly outside my balcony at 4:12 AM sharp."
+            <div class="sighting-time">12 mins ago</div>
+          </div>
         `;
-        feed.prepend(newItem);
+        return;
+      }
+
+      const { data: sightings, error } = await supabaseClient
+        .from("rooster_sightings")
+        .select("*")
+        .order("created_at", { ascending: false })
+        .limit(10);
+
+      if (error) {
+        console.error("Error fetching sightings:", error);
+        return;
+      }
+
+      if (sightings && sightings.length > 0) {
+        feed.innerHTML = "";
+        sightings.forEach(item => {
+          const timeAgo = new Date(item.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+          feed.innerHTML += `
+            <div class="sighting-item">
+              <strong>"Sighting" @ ${item.location}</strong><br>
+              "${item.detail}"
+              <div class="sighting-time">${timeAgo}</div>
+            </div>
+          `;
+        });
       }
     }
 
-    // Initialize Calculator & First Port Data on page load
-    updatePortData();
-    calculateReturnTime();
+    // 6. Submit New Rooster Sighting
+    async function reportRooster() {
+      const location = prompt("Enter the Island / Port location:");
+      if (!location) return;
+
+      const detail = prompt("What was the rooster doing?");
+      if (!detail) return;
+
+      if (supabaseClient) {
+        const { error } = await supabaseClient
+          .from("rooster_sightings")
+          .insert([{ location: location, detail: detail }]);
+
+        if (error) {
+          alert("Error saving sighting: " + error.message);
+        } else {
+          fetchRoosterSightings();
+        }
+      } else {
+        const feed = document.getElementById("sightingFeed");
+        if (feed) {
+          const newItem = document.createElement("div");
+          newItem.className = "sighting-item";
+          newItem.innerHTML = `
+            <strong>"New Sighting" @ ${location}</strong><br>
+            "${detail}"
+            <div class="sighting-time">Just now</div>
+          `;
+          feed.prepend(newItem);
+        }
+      }
+    }
+
+    // 7. Page Event Listeners Setup
+    document.addEventListener("DOMContentLoaded", function() {
+      const portSelect = document.getElementById("portSelect");
+      const allAboard = document.getElementById("allAboard");
+      const distanceMin = document.getElementById("distanceMin");
+
+      if (portSelect) portSelect.addEventListener("change", updatePortData);
+      if (allAboard) allAboard.addEventListener("change", calculateReturnTime);
+      if (distanceMin) distanceMin.addEventListener("input", calculateReturnTime);
+
+      // Initial run
+      updatePortData();
+      calculateReturnTime();
+      fetchRoosterSightings();
+    });
   </script>
 </body>
 </html>
