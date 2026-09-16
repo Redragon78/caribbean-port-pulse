@@ -178,33 +178,40 @@
 
     </main>
 
-    <!-- SIDEBAR -->
-    <aside>
-      
-      <div class="card" id="roosters">
-        <div class="rooster-header">
-          <h2 style="font-size: 1.1rem; color: var(--dark);">🐓 Rooster Radar</h2>
-          <span class="rooster-badge">LIVE FEED</span>
+    <!-- Caribbean Payment & Port Utility Card -->
+      <div class="card" id="port-utility" style="border: 1px solid #e2e8f0; background: #ffffff;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;">
+          <span style="background: #e0f2fe; color: #0369a1; font-size: 0.75rem; font-weight: bold; padding: 0.2rem 0.6rem; border-radius: 12px; text-transform: uppercase;">Port Intelligence</span>
+          <span style="font-size: 1.2rem;">💳</span>
         </div>
+
+        <h3 style="font-size: 1.1rem; color: #0f172a; margin-bottom: 0.5rem;">Cash or Card? & Port Traffic</h3>
         <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 1rem;">
-          Tracking 4:00 AM alarm clocks across the Caribbean.
+          Know before you dock: taxi payment rules, ATM reliability, and daily ship passenger congestion.
         </p>
 
-        <h3 style="font-size: 0.9rem; margin-bottom: 0.5rem; color: var(--primary);">Loudest Islands Leaderboard</h3>
-        <ul class="leaderboard">
-          <li><span>1. Key West / Bahamas</span> <strong>1,420 votes</strong></li>
-          <li><span>2. St. Lucia</span> <strong>1,105 votes</strong></li>
-          <li><span>3. San Juan, PR</span> <strong>890 votes</strong></li>
-          <li><span>4. Barbados</span> <strong>640 votes</strong></li>
-        </ul>
-
-        <h3 style="font-size: 0.9rem; margin-bottom: 0.5rem; color: var(--primary);">Recent Sightings</h3>
-        <div class="sighting-feed" id="sightingFeed">
-          <p style="font-size:0.8rem; color:#94a3b8;">Loading live sightings...</p>
+        <!-- Dynamic Port Intel Display -->
+        <div style="background: #f8fafc; border-radius: 8px; padding: 0.75rem; margin-bottom: 1rem; border: 1px solid #f1f5f9;">
+          <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.4rem;">
+            <span style="color: #475569;">🚕 <strong>Taxis:</strong></span>
+            <span id="intel-taxi" style="color: #dc2626; font-weight: bold;">Cash Only</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.4rem;">
+            <span style="color: #475569;">🏖️ <strong>Vendors & Shops:</strong></span>
+            <span id="intel-vendors" style="color: #16a34a; font-weight: bold;">Cards Accepted</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.4rem;">
+            <span style="color: #475569;">🏧 <strong>Port ATM Status:</strong></span>
+            <span id="intel-atm" style="color: #16a34a; font-weight: bold;">Working (Reported today)</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 0.85rem; border-top: 1px dashed #cbd5e1; padding-top: 0.4rem; margin-top: 0.4rem;">
+            <span style="color: #475569;">🚢 <strong>Expected Traffic:</strong></span>
+            <span id="intel-ships" style="color: #2563eb; font-weight: bold;">3 Ships (~9,500 guests)</span>
+          </div>
         </div>
 
-        <button class="btn btn-secondary" onclick="reportRooster()" style="margin-top: 1rem;">
-          📢 Report a Rooster Sighting
+        <button class="btn" onclick="logPaymentReport()" style="width: 100%; background: #0f172a; color: #ffffff; font-size: 0.85rem; padding: 0.6rem;">
+          ➕ Report ATM or Payment Status
         </button>
       </div>
 <!-- Airalo eSIM Affiliate Card -->
